@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Владельцы объекта</title>
+</head>
+<body>
+Владельцы объекта
+<div th:each="client: ${clients}">
+    <a th:href="@{clients/{client_id}(client_id=${client.getId()})}"
+       th:text="${client.getName()} + ', ' + ${client.getLastname()} + ', ' + ${client.getAddInfo()}
+        + ', ' + ${client.getPhoneNumber()} + ', ' + ${client.getEmail()}">client</a>
+</div>
+
+<br/>
+
+<a th:href="@{/facilities/{id}/clients/new(id=${facilityId})}">Добавить нового владльца</a>
+
+</body>
+</html>

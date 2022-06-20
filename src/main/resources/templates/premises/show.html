@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Помещение</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+
+Название помещения:
+<p th:text="${premise.getName()}">country</p>
+
+</br>
+
+<a th:href="@{{name}/edit(name=${premise.getName()})}">Редактировать название</a>
+
+</br>
+</br>
+</br>
+
+Задачи:
+<div>
+    <form th:method="PATCH" th:action="@{/facilities/{id}/premises/{name}/tasks(id=${facilityId}, name=${premise.getName()})}" >
+        <ul class="list-group list-group-horizontal" th:each="task: ${tasks}">
+            <li class="list-group-item">
+                <div class="input-group-text">
+                    <input th:value="${task.getId()}" th:if="${task.isDone() == true}"
+                           class="form-check-input mt-0" type="hidden" name="checkboxName"
+                           aria-label="Checkbox for following text input" checked>
+                    <input th:value="${task.getId()}" th:if="${task.isDone() == true}"
+                           class="form-check-input mt-0" type="checkbox" name="checkboxName"
+                           aria-label="Checkbox for following text input" checked>
+                    <input th:value="${task.getId()}" th:if="${task.isDone() == false}"
+                           class="form-check-input mt-0" type="hidden" name="checkboxName"
+                           aria-label="Checkbox for following text input">
+                    <input th:value="${task.getId()}" th:if="${task.isDone() == false}"
+                           class="form-check-input mt-0" type="checkbox" name="checkboxName"
+                           aria-label="Checkbox for following text input">
+                </div>
+            </li>
+            <a class="list-group-item list-group-item-action" aria-current="true"
+               th:text="${task.getText()}">facility</a>
+            <li class="list-group-item">
+                <a th:href="@{/facilities/{id}/premises/{name}/tasks/{task_id}
+                (id=${facilityId}, name=${premise.getName()}, task_id=${task.getId()})}"
+                   th:method="DELETE"
+                   class="btn btn-outline-secondary" id="inputGroupFileAddon04">Удалить</a>
+            </li>
+        </ul>
+        <button type="submit" class="btn btn-primary">Обновить</button>
+    </form>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Добавить задачу
+    </button>
+    <form th:method="POST" th:action="@{/facilities/{id}/tasks(id=${facilityId})}" th:object="${newTask}">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Заголовок</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-text">Задача</span>
+                            <textarea th:field="*{text}" class="form-control" aria-label="С текстовым полем"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</br>
+</br>
+</br>
+
+<form th:method="DELETE" th:action="@{{name}(name = ${premise.getName()})}">
+    <input type="submit" value="Удалить помещение"/>
+</form>
+
+</br>
+</br>
+</br>
+
+<a th:href="@{/facilities/{id}(id=${facilityId})}">Назад</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>
