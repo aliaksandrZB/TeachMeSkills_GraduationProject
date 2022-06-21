@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Владельцы объекта</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="d-flex container flex-column mt-3 p-0" style="width: 960px;">
+    <h1>Владельцы объекта</h1>
+    <div class="list-group" th:each="client: ${clients}">
+        <a th:href="@{clients/{client_id}(client_id=${client.getId()})}"
+           th:text="${client.getName()} + ', ' +
+                    ${client.getPhoneNumber()}"
+           class="list-group-item list-group-item-action" aria-current="true">facility</a>
+    </div>
+    </br>
+    <a th:href="@{/facilities/{id}/clients/new(id=${facilityId})}"
+       class="btn btn-secondary" role="button">Добавить нового владльца</a>
+
+
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+
+    <a class="btn btn-light" th:href="@{/facilities/{id}(id=${facilityId})}">Назад</a>
+
+    </br>
+    </br>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

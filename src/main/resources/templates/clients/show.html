@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Владелец</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="d-flex container flex-column mt-3 p-0" style="width: 960px;">
+    <div class="d-flex justify-content-between">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Информация о владельце</h5>
+                <p class="card-text">
+                    <p th:text="${'Имя: ' + client.getName()}">name</p>
+                    <p th:if="${!client.getLastname().isEmpty()}"
+                       th:text="${'Фамилия: ' + client.getLastname()}">lastname</p>
+                    <p th:text="${'Номер телефона: ' + client.getPhoneNumber()}">phone number</p>
+                    <p th:if="${!client.getEmail().isEmpty()}"
+                       th:text="${'e-mail: ' + client.getEmail()}">email</p>
+                    <p th:if="${!client.getAddInfo().isEmpty()}"
+                       th:text="${'Дополнительная информация: ' + client.getAddInfo()}">additional info</p>
+                </p>
+                <a th:href="@{{client_id}/edit(client_id=${client.getId()})}" class="btn btn-primary">Редактировать</a>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Объекты клиента</h5>
+                <div class="list-group" th:each="facility: ${facilities}">
+                    <a th:href="@{/facilities/{id}(id=${facility.getId()})}"
+                       th:text="${facility.getCountry()} + ', ' +
+                                ${facility.getCity()} +
+                                (${facility.getPostcode().isEmpty()} ? '' : (', ' + ${facility.getPostcode()})) +
+                                ${', ул. ' + facility.getStreet()} +
+                                (${facility.getHouseNumber().isEmpty} ? '' : (', д. ' + ${facility.getHouseNumber()}))"
+                       class="list-group-item list-group-item-action" aria-current="true">premise</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+
+    <div class="d-flex justify-content-between">
+        <a class="btn btn-light" th:href="@{/facilities/{id}/clients(id = ${facilityId})}">Назад</a>
+        <form th:method="DELETE"
+              th:action="@{/facilities/{id}/clients/{client_id}(id=${facilityId}, client_id=${client.getId()})}">
+            <button type="submit" class="btn btn-danger">Удалить клиента из объекта</button>
+        </form>
+    </div>
+
+    </br>
+    </br>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

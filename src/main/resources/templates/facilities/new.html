@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый объект</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="d-flex container flex-column align-items-center mt-3 p-0" style="width: 960px;">
+    <div class="card d-flex flex-column" style="width: 23rem;">
+        <h1>Новый объект</h1>
+        <form th:method="POST" th:action="@{/facilities}" th:object="${facility}"
+              class="row gy-2 gx-3 flex-column align-items-center">
+            <br/>
+            <div class="col-auto">
+                <label class="visually-hidden" for="autoSizingInputGroup"></label>
+                <div class="input-group">
+                    <div class="input-group-text" style="width: 160px;">Страна</div>
+                    <input type="text" th:field="*{country}" class="form-control" id="autoSizingInputGroup">
+                </div>
+                <div style="color:red" th:if="${#fields.hasErrors('country')}" th:errors="*{country}">country error</div>
+            </div>
+            <div class="col-auto b-2">
+                <label class="visually-hidden" for="autoSizingInputGroup"></label>
+                <div class="input-group">
+                    <div class="input-group-text" style="width: 160px;">Город</div>
+                    <input type="text" th:field="*{city}" class="form-control" id="autoSizingInputGroup">
+                </div>
+                <div style="color:red" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">city error</div>
+            </div>
+            <div class="col-auto b-2">
+                <label class="visually-hidden" for="autoSizingInputGroup"></label>
+                <div class="input-group">
+                    <div class="input-group-text" style="width: 160px;">Подчтовый индекс</div>
+                    <input type="text" th:field="*{postcode}" class="form-control" id="autoSizingInputGroup">
+                </div>
+                <div style="color:red" th:if="${#fields.hasErrors('postcode')}" th:errors="*{postcode}">postcode error</div>
+            </div>
+            <div class="col-auto b-2">
+                <label class="visually-hidden" for="autoSizingInputGroup"></label>
+                <div class="input-group">
+                    <div class="input-group-text" style="width: 160px;">Улица</div>
+                    <input type="text" th:field="*{street}" class="form-control" id="autoSizingInputGroup">
+                </div>
+                <div style="color:red" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">street error</div>
+            </div>
+            <div class="col-auto b-2">
+                <label class="visually-hidden" for="autoSizingInputGroup"></label>
+                <div class="input-group">
+                    <div class="input-group-text" style="width: 160px;">Дом</div>
+                    <input type="text" th:field="*{houseNumber}" class="form-control" id="autoSizingInputGroup">
+                </div>
+                <div style="color:red" th:if="${#fields.hasErrors('houseNumber')}" th:errors="*{houseNumber}">house number error</div>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>
